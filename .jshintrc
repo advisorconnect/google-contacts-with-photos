@@ -15,5 +15,6 @@
   "undef": true,
   "unused": false,
   "node": true,
-  "mocha": true
+  "mocha": true,
+  "promise": true
 }

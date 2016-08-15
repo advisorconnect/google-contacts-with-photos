@@ -26,62 +26,66 @@ var buildPath = function (params) {
     return path;
 };
 
-module.exports = function (opts, cb) {
-    if (opts.token == null) {
-        return cb(new Error('Missing OAuth token'));
-    }
+module.exports = function (opts) {
+    return new Promise(function (resolve, reject) {
 
-    var req = {
-        method: 'GET',
-        uri: 'https://www.google.com/' + buildPath(opts),
-        headers: {
-            Authorization: 'OAuth ' + opts.token
-        }
-    };
-
-    return request.get(req, function (err, res, data) {
-        if (err) {
-            return cb(new Error(err));
+        if (opts.token == null) {
+            reject(new Error('Missing OAuth token'));
         }
 
-        if (res.statusCode > 300 || res.statusCode < 200) {
-            return cb(new Error('Status code: ' + res.statusCode));
-        }
-
-        try {
-            data = JSON.parse(data);
-            var contacts = [];
-            if (data.feed != null) {
-                data.feed.entry.forEach(function (v, k) {
-                    var ref;
-
-                    // Parse image
-                    var linkNode = v.link || [];
-                    var images = linkNode
-                        .filter(function (node) {
-                            return node.type === 'image/*';
-                        })
-                        .map(function (node) {
-                            return node.href;
-                        });
-
-                    var contact = {
-                        email: (ref = v.gd$email) != null ? ref[0].address : void 0,
-                        name: v.title.$t,
-                        photo: images[0]
-                    };
-
-                    return contacts.push(contact);
-                });
+        var req = {
+            method: 'GET',
+            uri: 'https://www.google.com/' + buildPath(opts),
+            headers: {
+                Authorization: 'OAuth ' + opts.token
             }
-            else {
-                return cb(new Error('Unable to parse JSON. returned data is null'));
+        };
+
+        request.get(req, function (err, res, data) {
+            if (err) {
+                reject(err);
             }
 
-            return cb(null, contacts);
-        }
-        catch (e) {
-            return cb(e);
-        }
+            if (res.statusCode > 300 || res.statusCode < 200) {
+                reject(new Error('Status code: ' + res.statusCode));
+            }
+
+            try {
+                data = JSON.parse(data);
+                var contacts = [];
+
+                if (data.feed != null) {
+                    data.feed.entry.forEach(function (v, k) {
+                        var ref;
+
+                        // Parse image
+                        var linkNode = v.link || [];
+                        var images = linkNode
+                            .filter(function (node) {
+                                return node.type === 'image/*';
+                            })
+                            .map(function (node) {
+                                return node.href;
+                            });
+
+                        var contact = {
+                            email: (ref = v.gd$email) != null ? ref[0].address : void 0,
+                            name: v.title.$t,
+                            photo: images[0]
+                        };
+
+                        return contacts.push(contact);
+                    });
+
+                    resolve(contacts);
+                }
+                else {
+                    reject(new Error('Unable to parse JSON. returned data is null'));
+                }
+            }
+            catch (e) {
+                reject(e);
+            }
+        });
     });
 };

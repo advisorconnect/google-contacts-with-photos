@@ -1,8 +1,8 @@
 # google-contacts-with-photos
 
-Get contacts from Google with OAuth tokens **and photos**.
+A promise based API to fetch contacts from Google with OAuth tokens **and photos**.
 
-This project is a fork of https://github.com/stevelacy/google-contacts-oauth.
+This project is based on fork of https://github.com/stevelacy/google-contacts-oauth.
 
 ## Install
 ```sh
@@ -18,9 +18,15 @@ var googleContacts = require('google-contacts-with-photos');
 var opts = {
   token: 'google oauth token'
 };
-googleContacts(opts, function(err, data){
-  console.log(data);
-});
+
+googleContacts(opts)
+    .then(function (data) {
+        console.log(data);
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+
 //=>[{email: 'me@slacy.me', name: 'Steve Lacy', photo: 'http://...'}, ... ]
 ```
 
