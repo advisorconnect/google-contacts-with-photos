@@ -1,7 +1,7 @@
 'use strict';
 
+require('isomorphic-fetch');
 var qs = require('querystring');
-var request = require('request');
 
 var buildPath = function (params) {
     params = params || {};
@@ -14,7 +14,8 @@ var buildPath = function (params) {
 
     var query = {
         alt: params.alt,
-        'max-results': params['max-results']
+        'max-results': params['max-results'],
+        'access_token': params.token
     };
 
     var path = '/m8/feeds/';
@@ -26,32 +27,30 @@ var buildPath = function (params) {
     return path;
 };
 
+var fetchOptions = {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+};
+
 module.exports = function (opts) {
     return new Promise(function (resolve, reject) {
-
         if (opts.token == null) {
             reject(new Error('Missing OAuth token'));
         }
 
-        var req = {
-            method: 'GET',
-            uri: 'https://www.google.com/' + buildPath(opts),
-            headers: {
-                Authorization: 'OAuth ' + opts.token
-            }
-        };
+        var url = 'https://www.google.com/' + buildPath(opts);
 
-        request.get(req, function (err, res, data) {
-            if (err) {
-                reject(err);
-            }
-
-            if (res.statusCode > 300 || res.statusCode < 200) {
-                reject(new Error('Status code: ' + res.statusCode));
-            }
-
-            try {
-                data = JSON.parse(data);
+        fetch(url, fetchOptions)
+            .then(function (response) {
+                if (response.statusCode > 300 || response.statusCode < 200) {
+                    throw new Error('Status code: ' + response.statusCode);
+                }
+                return response.json();
+            })
+            .then(function (data) {
                 var contacts = [];
 
                 if (data.feed != null) {
@@ -80,12 +79,11 @@ module.exports = function (opts) {
                     resolve(contacts);
                 }
                 else {
-                    reject(new Error('Unable to parse JSON. returned data is null'));
+                    throw new Error('Unable to parse JSON. returned data is null');
                 }
-            }
-            catch (e) {
-                reject(e);
-            }
-        });
+            })
+            .catch(function (error) {
+                reject(error);
+            });
     });
 };
