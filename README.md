@@ -6,14 +6,14 @@ This project is a fork of https://github.com/stevelacy/google-contacts-oauth.
 
 ## Install
 ```sh
-$ npm install google-contacts-oauth
+$ npm install google-contacts-with-photos
 ```
 
 ## Usage
 
 
 ```js
-var googleContacts = require('google-contacts-oauth');
+var googleContacts = require('google-contacts-with-photos');
 
 var opts = {
   token: 'google oauth token'
@@ -62,12 +62,4 @@ Max results returned
 
 ## LICENSE
 
-[(MIT License)](https://github.com/stevelacy/google-contacts-oauth/blob/master/LICENSE)
-
-Copyright (c) 2015 Steve Lacy me@slacy.me slacy.me
-
-[travis-url]: https://travis-ci.org/stevelacy/google-contacts-oauth
-[travis-image]: https://travis-ci.org/stevelacy/google-contacts-oauth.png?branch=master
-
-[npm-url]: https://npmjs.org/package/google-contacts-oauth
-[npm-image]: http://img.shields.io/npm/v/google-contacts-oauth.svg
+[(MIT License)](https://github.com/hadynz/google-contacts-with-photos/blob/master/LICENSE)
