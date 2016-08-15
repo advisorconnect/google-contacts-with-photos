@@ -1,4 +1,4 @@
-# google-contacts-oauth [![NPM version][npm-image]][npm-url]  [![Build Status][travis-image]][travis-url]
+# google-contacts-with-photos
 
 Get contacts from Google with OAuth tokens **and photos**.
 
@@ -62,4 +62,4 @@ Max results returned
 
 ## LICENSE
 
-[(MIT License)](https://github.com/hadynz/google-contacts-with-photos/blob/master/LICENSE)
+[MIT License](https://github.com/hadynz/google-contacts-with-photos/blob/master/LICENSE)
