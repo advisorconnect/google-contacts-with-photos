@@ -1,7 +1,8 @@
 # google-contacts-oauth [![NPM version][npm-image]][npm-url]  [![Build Status][travis-image]][travis-url]
 
-> Get contacts from Google with OAuth tokens **and photos**.
+Get contacts from Google with OAuth tokens **and photos**.
 
+This project is a fork of https://github.com/stevelacy/google-contacts-oauth.
 
 ## Install
 ```sh

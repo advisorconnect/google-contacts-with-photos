@@ -1,14 +1,14 @@
 {
   "name": "google-contacts-with-photos",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Get contacts from Google with OAuth tokens with photos",
   "author": "Hady Osman <hadyos@gmail.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stevelacy/google-contacts-oauth"
+    "url": "https://github.com/hadynz/google-contacts-with-photos"
   },
-  "homepage": "https://github.com/stevelacy/google-contacts-oauth",
+  "homepage": "https://github.com/hadynz/google-contacts-with-photos",
   "dependencies": {
     "request": "^2.69.0"
   },
