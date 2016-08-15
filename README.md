@@ -1,6 +1,6 @@
 # google-contacts-oauth [![NPM version][npm-image]][npm-url]  [![Build Status][travis-image]][travis-url]
 
-> Get contacts from Google with OAuth tokens
+> Get contacts from Google with OAuth tokens **and photos**.
 
 
 ## Install
@@ -20,7 +20,7 @@ var opts = {
 googleContacts(opts, function(err, data){
   console.log(data);
 });
-//=>[{email: 'me@slacy.me', name: 'Steve Lacy'}, ... ]
+//=>[{email: 'me@slacy.me', name: 'Steve Lacy', photo: 'http://...'}, ... ]
 ```
 
 ## Options
