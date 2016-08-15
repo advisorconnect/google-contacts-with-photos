@@ -1,5 +1,5 @@
 {
-  "name": "google-contacts-oauth",
+  "name": "google-contacts-with-photos",
   "version": "0.1.1",
   "description": "Get contacts from Google with OAuth tokens with photos",
   "author": "Hady Osman <hadyos@gmail.com>",
