@@ -67,13 +67,31 @@ module.exports = function (opts) {
                                 return node.href;
                             });
 
-                        var contact = {
-                            email: (ref = v.gd$email) != null ? ref[0].address : void 0,
-                            phoneNumber: (ref = v.gd$phoneNumber) != null ? ref[0].uri.replace(/\D/g,'') : void 0,
-                            name: v.title.$t,
-                            photo: images[0]
-                        };
+                        var emails = [];
+                        var phoneNumbers = [];
 
+                        if (v.gd$email) {
+                            v.gd$email.forEach(function(email) {
+                                emails.push(email.address)
+                            })
+                        }
+
+                        if (v.gd$phoneNumber) {
+                            v.gd$phoneNumber.forEach(function(phone) {
+                                if (phone.uri) {
+                                    phoneNumbers.push(phone.uri.replace(/\D/g,''))
+                                }
+                            })
+                        }
+
+                        var contact = {
+                            email: emails,
+                            phoneNumber: phoneNumbers,
+                            name: v.title.$t,
+                            google_id: _.get(v, 'id.$t', '').substring(_.lastIndexOf(url, '/') + 1)
+                            // photo: images[0]
+                        };
+                        
                         return contacts.push(contact);
                     });
 
