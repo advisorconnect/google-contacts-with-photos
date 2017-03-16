@@ -1,6 +1,6 @@
 {
   "name": "google-contacts-with-photos-phone",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Get contacts from Google with OAuth tokens with photos and phone",
   "author": "Chris Perry <chris@advisorconnect.co>",
   "main": "index.js",
