@@ -69,6 +69,7 @@ module.exports = function (opts) {
 
                         var contact = {
                             email: (ref = v.gd$email) != null ? ref[0].address : void 0,
+                            phoneNumber: (ref = v.gd$phoneNumber) != null ? ref[0].uri.replace(/\D/g,'') : void 0,
                             name: v.title.$t,
                             photo: images[0]
                         };
