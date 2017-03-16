@@ -2,6 +2,7 @@
 
 require('isomorphic-fetch');
 var qs = require('querystring');
+var _ = require('lodash');
 
 var buildPath = function (params) {
     params = params || {};
